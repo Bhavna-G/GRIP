@@ -87,15 +87,46 @@ plt.title("Hours vs Scores")
 plt.xlabel("Hours studied")
 plt.ylabel("percentage scored")
 plt.show()
-
+figure 1
 df.corr()
+           Hours    Scores
+Hours   1.000000  0.976191
+Scores  0.976191  1.000000
 sns.lmplot(x="Hours", y="Scores", data=df)
 plt.title("plotting the regression line")
 #sns.regplot(x="Hours",y="Scores",data=df)
 x=df.iloc[:,:-1].values
 y=df.iloc[:,-1].values
 x
+array([[2.5],
+       [5.1],
+       [3.2],
+       [8.5],
+       [3.5],
+       [1.5],
+       [9.2],
+       [5.5],
+       [8.3],
+       [2.7],
+       [7.7],
+       [5.9],
+       [4.5],
+       [3.3],
+       [1.1],
+       [8.9],
+       [2.5],
+       [1.9],
+       [6.1],
+       [7.4],
+       [2.7],
+       [4.8],
+       [3.8],
+       [6.9],
+       [7.8]])
+
 y
+array([21, 47, 27, 75, 30, 20, 88, 60, 81, 25, 85, 62, 41, 42, 17, 95, 30,
+       24, 67, 69, 30, 54, 35, 76, 86], dtype=int64)
 from sklearn.model_selection import train_test_split
 x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=1/3,random_state=0)
 from sklearn.linear_model import LinearRegression
@@ -103,21 +134,39 @@ regressor= LinearRegression()
 regressor.fit(x_train,y_train)
 y_pred=regressor.predict(x_test)
 y_pred
+array([17.04289179, 33.51695377, 74.21757747, 26.73351648, 59.68164043,
+       39.33132858, 20.91914167, 78.09382734, 69.37226512])
+
 df1=pd.DataFrame({'Actual':y_test,'predicted':y_pred})
 df1
+   Actual  predicted
+0      20  17.042892
+1      27  33.516954
+2      69  74.217577
+3      30  26.733516
+4      62  59.681640
+5      35  39.331329
+6      24  20.919142
+7      86  78.093827
+8      76  69.372265
 plt.scatter(x_train,y_train,color='red')
 plt.plot(x_train,regressor.predict(x_train),color='blue')
 plt.title('(training set)')
 plt.xlabel('Hours')
 plt.ylabel('Scores')
 plt.show()
+figure2
+
 plt.scatter(x_test, y_test, color='red')
 plt.plot(x_train,regressor.predict(x_train),color='blue')
 plt.title('(testing set)')
 plt.xlabel('Hours studied')
 plt.ylabel('percentage scored')
 plt.show()
+figure 3
 Hours=np.array([[9.25]])
 predict= regressor.predict(Hours)
 print("No. of Hours={}".format(Hours))
+No. of Hours=[[9.25]]
 print("predicted score={}".format(predict[0]))
+predicted score=92.14523314523316
